@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Planning &amp; Design - My Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+     <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Raspberry Pi Cluster Setup Journey</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../hardware/" class="nav-link">Hardware Setup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Planning &amp; Design</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="../hardware/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#planning-design" class="nav-link">Planning &amp; Design</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#project-goals" class="nav-link">Project Goals</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#project-evolution" class="nav-link">Project Evolution</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#architecture-overview" class="nav-link">Architecture Overview</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#hardware-planning" class="nav-link">Hardware Planning</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#network-design" class="nav-link">Network Design</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#software-stack-planning" class="nav-link">Software Stack Planning</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#timeline-milestones" class="nav-link">Timeline &amp; Milestones</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#risk-assessment" class="nav-link">Risk Assessment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#success-criteria" class="nav-link">Success Criteria</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="planning-design">Planning &amp; Design</h1>
+<h2 id="project-goals">Project Goals</h2>
+<h3 id="primary-objectives">Primary Objectives</h3>
+<ul>
+<li>[x] Learn the fundamentals of clustering and distributed systems (Slurm, Kubernetes)</li>
+<li>[x] Experiment with both HPC and container orchestration approaches</li>
+<li>[x] Build, break, and rebuild a real hardware cluster from scratch</li>
+<li>[x] Develop practical DevOps and infrastructure automation skills</li>
+<li>[x] Create a flexible home lab for ongoing experimentation</li>
+<li>[x] Understand hardware limitations and capacity planning through hands-on experience</li>
+</ul>
+<h3 id="secondary-goals">Secondary Goals</h3>
+<ul>
+<li>[x] Compare and contrast different orchestration tools (Slurm vs. K3s)</li>
+<li>[x] Optimize for cost, power, and scalability</li>
+<li>[x] Document the full journey—including failures, pivots, and lessons learned</li>
+<li>[x] Achieve a production-like, high-availability Kubernetes cluster</li>
+<li>[x] Reduce reliance on cloud costs by self-hosting applications</li>
+<li>[x] Enable future expansion and hybrid workloads (Pi 4 + Pi 5)</li>
+</ul>
+<h2 id="project-evolution">Project Evolution</h2>
+<h3 id="my-cluster-journey-from-slurm-to-kubernetes">My Cluster Journey: From Slurm to Kubernetes</h3>
+<h4 id="phase-1-the-slurm-experiment">Phase 1: The Slurm Experiment</h4>
+<p>I started my cluster journey with the idea of building a low-cost HPC cluster using Slurm and several Raspberry Pi 4 boards (originally 1GB RAM models). My experience with AWS T2.micro instances made me think this would be enough for basic clustering. While I was able to get the Pis working together, I quickly realized that Slurm wasn’t a good fit for my needs—I didn’t require CPU-intensive batch jobs or heavy computation. The project was a great way to showcase my skills and past experience, but it wasn’t practical for my day-to-day goals.</p>
+<p><a class="glightbox" href="../assets/images/me_frustrating_with_pi.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Raspberry Pi Cluster Prototype" src="../assets/images/me_frustrating_with_pi.png" /></a>
+<a class="glightbox" href="../assets/images/initial_pi_cluster_with_pi4.JPG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Initial pi Cluster Setup" src="../assets/images/initial_pi_cluster_with_pi4.JPG" /></a></p>
+<h4 id="phase-2-rethinking-the-use-case">Phase 2: Rethinking the Use Case</h4>
+<p>Wanting to focus more on application development and the full DevOps lifecycle, I began exploring container orchestration. I discovered K3s, a lightweight Kubernetes distribution that’s perfect for small clusters and edge devices. This shift allowed me to simulate scaling, deploy real applications, and even reduce my reliance on paid cloud services like AWS (which was costing me $10/month for just a couple of T2.micro instances and static IPs).</p>
+<h4 id="phase-3-the-k3s-reality-check">Phase 3: The K3s Reality Check</h4>
+<p>Inspired by <a href="https://www.youtube.com/watch?v=N4bfNefjBSw&amp;list=PL2_OBreMn7Frk57NLmLheAaSSpJLLL90G&amp;index=3">Jeff Geerling’s K3s tutorials</a>, I tried installing K3s on my Pi 4 cluster. Unfortunately, 1GB RAM was nowhere near enough for a Kubernetes control plane. The master node couldn’t even start reliably, and I learned the hard way how important it is to plan hardware specs before buying.</p>
+<h4 id="phase-4-hardware-upgrade-cluster-expansion">Phase 4: Hardware Upgrade &amp; Cluster Expansion</h4>
+<p>Realizing the hardware bottleneck, I decided to upgrade. I started by purchasing two Raspberry Pi 5 boards (8GB RAM each) to test K3s performance. Encouraged by the results, I added two more Pi 5s, building a cluster with one master and three workers, all fitting nicely in a tower case.</p>
+<h4 id="phase-5-finalizing-the-production-cluster">Phase 5: Finalizing the Production Cluster</h4>
+<p>There was a long period of inactivity on the rpi5 clusters due to my personal life that I decided to disassemble everything and even repurposed one pi 4 for OctoPi (3d printer server) and added another pi 5. I was still feeling toward using slurm for some unforseen events in the future but I decided that would not come and would probably better to go with some other solutions like running directly on my mac, desktop, or even cloud. As my focus shifted fully to Kubernetes and my focus is back to building pi cluster again, I start gathering what I have. This brought my cluster to its current state: 5× Pi 5 (8GB RAM) and 3× Pi 4 (1GB RAM), all freshly re-imaged and ready for a robust, production-like Kubernetes environment.</p>
+<h3 id="current-configuration">Current Configuration</h3>
+<ul>
+<li><strong>Total Nodes</strong>: 8 (5×Pi5 + 3×Pi4)</li>
+<li><strong>Architecture</strong>: High-availability control plane with mixed worker nodes</li>
+<li><strong>Use Case</strong>: Production-like Kubernetes learning environment</li>
+<li><strong>Status</strong>: Fully operational and hosting real applications</li>
+</ul>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<h3 id="cluster-topology">Cluster Topology</h3>
+<pre><code>                    ┌─────────────────┐
+                    │   Router/Switch │
+                    └─────────┬───────┘
+                              │
+          ┌───────────────────┼───────────────────┐
+          │                   │                   │
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│  Control Plane  │  │  Control Plane  │  │  Control Plane  │
+│   pi5-master-1  │  │   pi5-master-2  │  │   pi5-master-3  │
+└─────────────────┘  └─────────────────┘  └─────────────────┘
+          │                   │                   │
+          └───────────────────┼───────────────────┘
+                              │
+    ┌─────────────────────────┼─────────────────────────┐
+    │                         │                         │
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│  Worker (Pi5)   │  │  Worker (Pi5)   │  │  Worker (Pi4)   │
+│  pi5-worker-1   │  │  pi5-worker-2   │  │  pi4-worker-1   │
+└─────────────────┘  └─────────────────┘  └─────────────────┘
+          │                   │                   │
+          └───────────────────┼───────────────────┘
+                              │
+          ┌───────────────────┼───────────────────┐
+          │                   │                   │
+┌─────────────────┐  ┌─────────────────┐
+│  Worker (Pi4)   │  │  Worker (Pi4)   │
+│  pi4-worker-2   │  │  pi4-worker-3   │
+└─────────────────┘  └─────────────────┘
+</code></pre>
+<h3 id="node-roles">Node Roles</h3>
+<ul>
+<li><strong>Control Plane Nodes (3x Pi 5)</strong>: High availability Kubernetes control plane, API server, scheduler, etcd</li>
+<li><strong>Worker Nodes (2x Pi 5)</strong>: High-performance application workloads, pod execution</li>
+<li><strong>Worker Nodes (3x Pi 4)</strong>: General application workloads, batch processing</li>
+</ul>
+<h2 id="hardware-planning">Hardware Planning</h2>
+<h3 id="bill-of-materials-bom">Bill of Materials (BOM)</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Quantity</th>
+<th>Unit Cost</th>
+<th>Total Cost</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raspberry Pi 5 (8GB)</td>
+<td>5</td>
+<td>$80</td>
+<td>$400</td>
+<td>Control plane + high-perf workers</td>
+</tr>
+<tr>
+<td>Raspberry Pi 4 (2GB)</td>
+<td>3</td>
+<td>$55</td>
+<td>$165</td>
+<td>General workload workers</td>
+</tr>
+<tr>
+<td>### Bill of Materials (BOM)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Quantity</th>
+<th>Unit Cost</th>
+<th>Total Cost</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raspberry Pi 5 (8GB)</td>
+<td>5</td>
+<td>$80</td>
+<td>$400</td>
+<td>Control plane + high-perf workers</td>
+</tr>
+<tr>
+<td>Raspberry Pi 4 (2GB)</td>
+<td>3</td>
+<td>$55</td>
+<td>$165</td>
+<td>General workload workers</td>
+</tr>
+<tr>
+<td>MicroSD Card (64GB)</td>
+<td>8</td>
+<td>$12</td>
+<td>$96</td>
+<td>SanDisk Extreme Pro recommended</td>
+</tr>
+<tr>
+<td>USB-C Power Supply</td>
+<td>8</td>
+<td>$15</td>
+<td>$120</td>
+<td>Official Pi Foundation preferred</td>
+</tr>
+<tr>
+<td>Ethernet Cables (1ft)</td>
+<td>8</td>
+<td>$5</td>
+<td>$40</td>
+<td>Cat6 for gigabit speeds</td>
+</tr>
+<tr>
+<td>Gigabit Switch (16-port)</td>
+<td>1</td>
+<td>$60</td>
+<td>$60</td>
+<td>Managed switch for 8+ devices</td>
+</tr>
+<tr>
+<td>Cluster Case/Rack</td>
+<td>1</td>
+<td>$80</td>
+<td>$80</td>
+<td>For 8-node organization and cooling</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td></td>
+<td><strong>$961</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-expectations">Performance Expectations</h3>
+<h4 id="single-node-specs-pi-5">Single Node Specs (Pi 5)</h4>
+<ul>
+<li><strong>CPU</strong>: 4-core ARM Cortex-A76 @ 2.4GHz</li>
+<li><strong>RAM</strong>: 8GB LPDDR4X</li>
+<li><strong>Storage</strong>: 64GB microSD (Class 10/U3)</li>
+<li><strong>Network</strong>: Gigabit Ethernet</li>
+</ul>
+<h4 id="single-node-specs-pi-4">Single Node Specs (Pi 4)</h4>
+<ul>
+<li><strong>CPU</strong>: 4-core ARM Cortex-A72 @ 1.8GHz</li>
+<li><strong>RAM</strong>: 2GB LPDDR4</li>
+<li><strong>Storage</strong>: 64GB microSD (Class 10/U3)</li>
+<li><strong>Network</strong>: Gigabit Ethernet</li>
+</ul>
+<h4 id="cluster-aggregate">Cluster Aggregate</h4>
+<ul>
+<li><strong>Total CPU Cores</strong>: 32 (5×Pi5×4 cores + 3×Pi4×4 cores)</li>
+<li><strong>Total RAM</strong>: 46GB (5×8GB + 3×2GB) - with OS overhead ~36GB usable</li>
+<li><strong>Network Bandwidth</strong>: 8Gbps theoretical</li>
+<li><strong>Power Consumption</strong>: ~120W total</li>
+</ul>
+<h2 id="network-design">Network Design</h2>
+<h3 id="ip-address-scheme">IP Address Scheme</h3>
+<pre><code>Network: 192.168.86.0/24
+Gateway: 192.168.86.1 (Router)
+
+Control Plane Nodes:
+- pi5-master-1: 192.168.86.33
+- pi5-master-2: 192.168.86.29
+- pi5-master-3: 192.168.86.30
+
+Worker Nodes (Pi 5):
+- pi5-worker-1: 192.168.86.32
+- pi5-worker-2: 192.168.86.34
+
+Worker Nodes (Pi 4):
+- pi4-worker-1: 192.168.86.27
+- pi4-worker-2: 192.168.86.26
+- pi4-worker-3: 192.168.86.23
+</code></pre>
+<h3 id="dns-configuration">DNS Configuration</h3>
+<ul>
+<li><strong>Hostname Pattern</strong>: <code>pi{5|4}-{role}-{number}.local</code></li>
+<li><strong>Internal DNS</strong>: Consider Pi-hole for local resolution</li>
+<li><strong>External Access</strong>: Dynamic DNS or VPN for remote access</li>
+</ul>
+<h2 id="software-stack-planning">Software Stack Planning</h2>
+<h3 id="operating-system">Operating System</h3>
+<ul>
+<li><strong>Choice</strong>: Raspberry Pi OS Lite (64-bit)</li>
+<li><strong>Rationale</strong>: Official support, optimized for Pi hardware</li>
+<li><strong>Alternative</strong>: Ubuntu Server 22.04 LTS (better K8s support)</li>
+</ul>
+<h3 id="container-runtime">Container Runtime</h3>
+<ul>
+<li><strong>Primary</strong>: containerd (Kubernetes default)</li>
+<li><strong>Alternative</strong>: Docker (for development/testing)</li>
+</ul>
+<h3 id="orchestration-platform">Orchestration Platform</h3>
+<ul>
+<li><strong>Choice</strong>: Kubernetes (k3s distribution)</li>
+<li><strong>Rationale</strong>: Lightweight, Pi-optimized, production-ready</li>
+<li><strong>Version</strong>: Latest stable (1.28+)</li>
+</ul>
+<h3 id="monitoring-observability">Monitoring &amp; Observability</h3>
+<ul>
+<li><strong>Metrics</strong>: Prometheus + Grafana</li>
+<li><strong>Logs</strong>: Fluentd/Fluent Bit + ELK Stack</li>
+<li><strong>Tracing</strong>: Jaeger (optional)</li>
+</ul>
+<h2 id="timeline-milestones">Timeline &amp; Milestones</h2>
+<h3 id="phase-1-foundation-week-1-2-completed">Phase 1: Foundation (Week 1-2) ✅ COMPLETED</h3>
+<ul>
+<li>[x] Hardware procurement and assembly</li>
+<li>[x] OS installation and basic configuration</li>
+<li>[x] Network setup and connectivity testing</li>
+<li>[x] SSH access and security hardening</li>
+</ul>
+<h3 id="phase-2-cluster-setup-week-3-4-completed">Phase 2: Cluster Setup (Week 3-4) ✅ COMPLETED</h3>
+<ul>
+<li>[x] Initial 4-node Pi 4 cluster setup</li>
+<li>[x] Kubernetes cluster initialization</li>
+<li>[x] Node joining and verification</li>
+<li>[x] Basic networking (CNI) configuration</li>
+</ul>
+<h3 id="phase-3-cluster-expansion-week-5-6-completed">Phase 3: Cluster Expansion (Week 5-6) ✅ COMPLETED</h3>
+<ul>
+<li>[x] Procurement of 5 Pi 5 8GB units</li>
+<li>[x] Hardware integration and testing</li>
+<li>[x] High-availability control plane setup</li>
+<li>[x] Mixed architecture worker node configuration</li>
+</ul>
+<h3 id="phase-4-production-services-week-7-8-in-progress">Phase 4: Production Services (Week 7-8) 🔄 IN PROGRESS</h3>
+<ul>
+<li>[ ] Ingress controller deployment</li>
+<li>[ ] Certificate management (cert-manager)</li>
+<li>[ ] Monitoring stack installation</li>
+<li>[ ] Backup and recovery procedures</li>
+</ul>
+<h3 id="phase-5-applications-optimization-week-9-10">Phase 5: Applications &amp; Optimization (Week 9-10)</h3>
+<ul>
+<li>[ ] Sample application deployment</li>
+<li>[ ] CI/CD pipeline setup</li>
+<li>[ ] Load testing and optimization</li>
+<li>[ ] Documentation completion</li>
+</ul>
+<h2 id="risk-assessment">Risk Assessment</h2>
+<h3 id="technical-risks">Technical Risks</h3>
+<ul>
+<li><strong>SD Card Failure</strong>: High wear on storage</li>
+<li><em>Mitigation</em>: High-quality cards, regular backups</li>
+<li><strong>Power Issues</strong>: Instability from inadequate power</li>
+<li><em>Mitigation</em>: Official power supplies, UPS consideration</li>
+<li><strong>Thermal Throttling</strong>: Performance degradation from heat</li>
+<li><em>Mitigation</em>: Proper ventilation, monitoring</li>
+<li><strong>Mixed Architecture Complexity</strong>: Pi 4 vs Pi 5 differences</li>
+<li><em>Mitigation</em>: Node labeling, workload placement strategies</li>
+</ul>
+<h3 id="project-risks">Project Risks</h3>
+<ul>
+<li><strong>Complexity Underestimation</strong>: Learning curve steeper than expected</li>
+<li><em>Mitigation</em>: Incremental approach, community resources</li>
+<li><strong>Hardware Limitations</strong>: Pi constraints affecting goals</li>
+<li><em>Mitigation</em>: Realistic expectations, alternative solutions</li>
+</ul>
+<h2 id="success-criteria">Success Criteria</h2>
+<h3 id="technical-metrics">Technical Metrics</h3>
+<ul>
+<li>[ ] Cluster uptime &gt; 99% over 1 month</li>
+<li>[ ] All nodes joining cluster successfully</li>
+<li>[ ] Sample applications running reliably</li>
+<li>[ ] Monitoring and alerting functional</li>
+</ul>
+<h3 id="learning-objectives">Learning Objectives</h3>
+<ul>
+<li>[x] Comfortable with kubectl and Kubernetes concepts</li>
+<li>[x] Understanding of distributed systems principles</li>
+<li>[x] Experience with infrastructure as code</li>
+<li>[x] Troubleshooting and debugging skills developed</li>
+<li>[x] High-availability cluster management</li>
+<li>[ ] Mixed-architecture workload optimization</li>
+</ul>
+<hr />
+<p><em>Planning completed: June 30, 2025</em>
+<em>Last updated: July 1, 2025</em>
+<em>Next: <a href="../hardware/">Hardware Setup</a></em></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+</script></body>
+</html>

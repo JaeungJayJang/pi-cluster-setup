@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Hardware Setup - My Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+     <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Raspberry Pi Cluster Setup Journey</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Hardware Setup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../planning/" class="nav-link">Planning &amp; Design</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../planning/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#hardware-setup" class="nav-link">Hardware Setup</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#unboxing-inventory" class="nav-link">Unboxing &amp; Inventory</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#physical-assembly" class="nav-link">Physical Assembly</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#network-infrastructure" class="nav-link">Network Infrastructure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#power-management" class="nav-link">Power Management</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#storage-preparation" class="nav-link">Storage Preparation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#environmental-setup" class="nav-link">Environmental Setup</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#testing-validation" class="nav-link">Testing &amp; Validation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#troubleshooting-common-issues" class="nav-link">Troubleshooting Common Issues</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#next-steps" class="nav-link">Next Steps</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="hardware-setup">Hardware Setup</h1>
+<h2 id="unboxing-inventory">Unboxing &amp; Inventory</h2>
+<h3 id="pre-setup-checklist">Pre-Setup Checklist</h3>
+<ul>
+<li>[ ] All Raspberry Pi boards received and inspected</li>
+<li>[ ] Power supplies tested and functional</li>
+<li>[ ] MicroSD cards verified (speed test recommended)</li>
+<li>[ ] Network cables tested for continuity</li>
+<li>[ ] Switch/router configuration access confirmed</li>
+</ul>
+<h3 id="initial-inspection">Initial Inspection</h3>
+<p>Document any issues found during unboxing:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Serial/Model</th>
+<th>Condition</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pi Board #1</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+<tr>
+<td>Pi Board #2</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+<tr>
+<td>Pi Board #3</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+<tr>
+<td>Pi Board #4</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="physical-assembly">Physical Assembly</h2>
+<h3 id="cluster-case-assembly">Cluster Case Assembly</h3>
+<p>If using a cluster case or rack:</p>
+<ol>
+<li><strong>Case Preparation</strong></li>
+<li>[ ] Assemble case according to manufacturer instructions</li>
+<li>[ ] Install any included fans or cooling solutions</li>
+<li>
+<p>[ ] Verify all mounting points align with Pi boards</p>
+</li>
+<li>
+<p><strong>Pi Board Installation</strong></p>
+</li>
+<li>[ ] Install heat sinks on CPU and RAM chips</li>
+<li>[ ] Mount each Pi in designated slots</li>
+<li>
+<p>[ ] Ensure proper clearance for cables and airflow</p>
+</li>
+<li>
+<p><strong>Cable Management</strong></p>
+</li>
+<li>[ ] Route power cables cleanly</li>
+<li>[ ] Organize ethernet cables by length</li>
+<li>[ ] Leave space for maintenance access</li>
+</ol>
+<h3 id="cooling-considerations">Cooling Considerations</h3>
+<h4 id="passive-cooling">Passive Cooling</h4>
+<ul>
+<li><strong>Heat Sinks</strong>: Aluminum or copper on CPU</li>
+<li><strong>Case Design</strong>: Ensure adequate ventilation</li>
+<li><strong>Spacing</strong>: Maintain airflow between nodes</li>
+</ul>
+<h4 id="active-cooling-optional">Active Cooling (Optional)</h4>
+<ul>
+<li><strong>Case Fans</strong>: 40mm or 80mm depending on case</li>
+<li><strong>Individual Fans</strong>: Small fans per Pi board</li>
+<li><strong>Temperature Monitoring</strong>: Track thermals during load</li>
+</ul>
+<h2 id="network-infrastructure">Network Infrastructure</h2>
+<h3 id="switch-configuration">Switch Configuration</h3>
+<h4 id="basic-setup">Basic Setup</h4>
+<pre><code class="language-bash"># Default switch settings (most are plug-and-play)
+- Auto-negotiation: Enabled
+- Duplex: Full
+- Speed: Gigabit
+- Flow Control: Enabled
+</code></pre>
+<h4 id="advanced-configuration-managed-switch">Advanced Configuration (Managed Switch)</h4>
+<pre><code class="language-bash"># VLAN setup (optional)
+VLAN 10: Cluster Management (192.168.1.0/24)
+VLAN 20: Application Traffic (192.168.2.0/24)
+
+# Port assignments
+Port 1-4: Pi Nodes (Access VLAN 10)
+Port 5: Uplink to Router (Trunk)
+Port 6-8: Future expansion
+</code></pre>
+<h3 id="cable-organization">Cable Organization</h3>
+<h4 id="labeling-system">Labeling System</h4>
+<ul>
+<li><strong>Power Cables</strong>: "PWR-PI-01", "PWR-PI-02", etc.</li>
+<li><strong>Network Cables</strong>: "NET-PI-01", "NET-PI-02", etc.</li>
+<li><strong>Node Labels</strong>: Physical labels on each Pi</li>
+</ul>
+<h4 id="cable-routing">Cable Routing</h4>
+<ul>
+<li>[ ] Power cables routed away from network cables</li>
+<li>[ ] Service loops for maintenance access</li>
+<li>[ ] Strain relief at connection points</li>
+</ul>
+<h2 id="power-management">Power Management</h2>
+<h3 id="power-supply-verification">Power Supply Verification</h3>
+<h4 id="individual-pi-testing">Individual Pi Testing</h4>
+<pre><code class="language-bash"># Test each power supply before deployment
+1. Connect power supply to Pi
+2. Boot with basic OS image
+3. Monitor voltage under load:
+   vcgencmd measure_volts
+4. Document any voltage drops below 4.8V
+</code></pre>
+<h4 id="load-testing">Load Testing</h4>
+<ul>
+<li>[ ] All Pis powered simultaneously</li>
+<li>[ ] Full CPU stress test on all nodes</li>
+<li>[ ] Monitor for brownouts or instability</li>
+<li>[ ] Document peak power consumption</li>
+</ul>
+<h3 id="power-distribution">Power Distribution</h3>
+<h4 id="centralized-vs-distributed">Centralized vs Distributed</h4>
+<p><strong>Option A: Individual Power Supplies</strong>
+- Pros: Isolation, easier troubleshooting
+- Cons: Cable clutter, multiple wall adapters</p>
+<p><strong>Option B: USB Hub with High-Wattage Supply</strong>
+- Pros: Cleaner cable management
+- Cons: Single point of failure</p>
+<p><strong>Option C: PoE (Power over Ethernet)</strong>
+- Pros: Single cable per Pi, very clean
+- Cons: Requires PoE HATs, more expensive</p>
+<h3 id="ups-considerations">UPS Considerations</h3>
+<p>For production-like testing:
+- [ ] Calculate total power consumption
+- [ ] Size UPS for 15-30 minutes runtime
+- [ ] Configure graceful shutdown procedures
+- [ ] Test failover scenarios</p>
+<h2 id="storage-preparation">Storage Preparation</h2>
+<h3 id="microsd-card-setup">MicroSD Card Setup</h3>
+<h4 id="performance-testing">Performance Testing</h4>
+<pre><code class="language-bash"># Test write speed (do this before OS installation)
+sudo dd if=/dev/zero of=/path/to/test bs=1M count=1024 conv=fsync
+# Should achieve &gt;50MB/s for Class 10 cards
+</code></pre>
+<h4 id="card-preparation">Card Preparation</h4>
+<ol>
+<li>
+<p><strong>Format Cards</strong>
+   <code>bash
+   # Use official Raspberry Pi Imager or
+   sudo fdisk /dev/diskX  # Replace X with actual disk</code></p>
+</li>
+<li>
+<p><strong>Label Cards</strong></p>
+</li>
+<li>Physical labels: "PI-MASTER", "PI-WORKER-01", etc.</li>
+<li>Document serial numbers for tracking</li>
+</ol>
+<h4 id="backup-strategy-planning">Backup Strategy Planning</h4>
+<ul>
+<li>[ ] Determine backup frequency (weekly recommended)</li>
+<li>[ ] Plan for automated backup scripts</li>
+<li>[ ] Consider network-attached storage for backups</li>
+</ul>
+<h2 id="environmental-setup">Environmental Setup</h2>
+<h3 id="workspace-organization">Workspace Organization</h3>
+<h4 id="physical-workspace">Physical Workspace</h4>
+<ul>
+<li>[ ] Dedicated area for cluster</li>
+<li>[ ] Good ventilation and temperature control</li>
+<li>[ ] Easy access for maintenance</li>
+<li>[ ] Protection from dust and interference</li>
+</ul>
+<h4 id="tools-supplies-station">Tools &amp; Supplies Station</h4>
+<ul>
+<li>[ ] Spare cables and adapters</li>
+<li>[ ] Multimeter for electrical testing</li>
+<li>[ ] Small screwdrivers and tools</li>
+<li>[ ] Backup microSD cards</li>
+<li>[ ] Documentation and labels</li>
+</ul>
+<h3 id="documentation-setup">Documentation Setup</h3>
+<h4 id="photo-documentation">Photo Documentation</h4>
+<ul>
+<li>[ ] Before assembly photos</li>
+<li>[ ] Step-by-step assembly photos</li>
+<li>[ ] Final setup documentation</li>
+<li>[ ] Cable routing and labeling photos</li>
+</ul>
+<h4 id="configuration-records">Configuration Records</h4>
+<p>Create a physical or digital log for:
+- Serial numbers and MAC addresses
+- Power consumption measurements
+- Network configuration details
+- Any modifications or issues encountered</p>
+<h2 id="testing-validation">Testing &amp; Validation</h2>
+<h3 id="connectivity-testing">Connectivity Testing</h3>
+<h4 id="network-verification">Network Verification</h4>
+<pre><code class="language-bash"># Test each Pi's network connectivity
+ping -c 4 192.168.1.1  # Gateway
+ping -c 4 8.8.8.8      # Internet
+ping -c 4 pi-worker1.local  # Inter-node communication
+</code></pre>
+<h4 id="performance-baseline">Performance Baseline</h4>
+<pre><code class="language-bash"># Network speed test between nodes
+iperf3 -s  # On one node
+iperf3 -c pi-worker1 -t 30  # From another node
+</code></pre>
+<h3 id="stress-testing">Stress Testing</h3>
+<h4 id="individual-node-testing">Individual Node Testing</h4>
+<pre><code class="language-bash"># CPU stress test
+stress-ng --cpu 4 --timeout 300s --metrics-brief
+
+# Memory test
+stress-ng --vm 2 --vm-bytes 75% --timeout 300s
+
+# Storage I/O test
+stress-ng --hdd 1 --hdd-bytes 1G --timeout 300s
+</code></pre>
+<h4 id="cluster-wide-testing">Cluster-Wide Testing</h4>
+<ul>
+<li>[ ] All nodes under simultaneous load</li>
+<li>[ ] Monitor temperatures and throttling</li>
+<li>[ ] Verify stable operation for extended periods</li>
+<li>[ ] Document any performance limitations</li>
+</ul>
+<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
+<h3 id="power-related-problems">Power-Related Problems</h3>
+<h4 id="symptoms-solutions">Symptoms &amp; Solutions</h4>
+<ul>
+<li><strong>Random reboots</strong>: Check power supply capacity</li>
+<li><strong>Yellow lightning bolt</strong>: Increase power supply wattage</li>
+<li><strong>Performance issues</strong>: Monitor voltage under load</li>
+</ul>
+<h3 id="network-issues">Network Issues</h3>
+<h4 id="connectivity-problems">Connectivity Problems</h4>
+<ul>
+<li><strong>No link light</strong>: Check cable and switch port</li>
+<li><strong>Slow speeds</strong>: Verify cable category and switch capabilities</li>
+<li><strong>DHCP failures</strong>: Check router DHCP pool size</li>
+</ul>
+<h3 id="thermal-issues">Thermal Issues</h3>
+<h4 id="overheating-symptoms">Overheating Symptoms</h4>
+<ul>
+<li><strong>CPU throttling</strong>: Monitor with <code>vcgencmd measure_temp</code></li>
+<li><strong>Reduced performance</strong>: Add cooling or improve ventilation</li>
+<li><strong>System instability</strong>: Check case airflow design</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<p>Once hardware setup is complete:</p>
+<ol>
+<li><strong>OS Installation</strong>: Proceed to <a href="os-setup.md">OS Setup</a></li>
+<li><strong>Initial Configuration</strong>: Network and SSH setup</li>
+<li><strong>Security Hardening</strong>: Update and secure each node</li>
+<li><strong>Cluster Software</strong>: Kubernetes installation and configuration</li>
+</ol>
+<hr />
+<p><em>Hardware setup completed: [Date]</em>
+<em>Issues encountered: [List any problems and solutions]</em>
+<em>Next: <a href="os-setup.md">Operating System Setup</a></em></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+</script></body>
+</html>
