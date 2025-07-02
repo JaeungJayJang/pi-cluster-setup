@@ -2,6 +2,12 @@
 
 Welcome to my documentation of building and configuring a Raspberry Pi cluster! This site chronicles the entire journey from planning to deployment, including all the challenges, solutions, and lessons learned along the way.
 
+## 🔍 Why I Started This Project
+
+As someone who works with HPC clusters and distributed systems professionally, I wanted a hands-on way to explore similar concepts at home. While cloud solutions like AWS are powerful, they’re often too costly for personal experimentation. That’s why I decided to build my own Raspberry Pi cluster from the ground up.
+
+This project not only provided a more affordable and flexible learning platform, but—let’s be honest—it also feels pretty cool to say I have a working Raspberry Pi cluster running in my home network. Every node’s IP is pinned to avoid DHCP rotation, and everything is configured over a wired, closed network for stability.
+
 ## 🎯 Project Overview
 
 This project documents the complete process of setting up a Raspberry Pi cluster for learning distributed computing, container orchestration, and DevOps practices. Whether you're a beginner or experienced developer, you'll find detailed guides, troubleshooting tips, and real-world insights.
