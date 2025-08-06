@@ -17,12 +17,41 @@ theme:
 
 nav:
   - Home: index.md
-  - Planning: planning.md
-  - Hardware Setup: hardware.md
-  - OS Setup: os-setup.md
-  - Network Configuration: network.md
-  - Kubernetes Setup: kubernetes.md
-  - Troubleshooting: troubleshooting.md
+  - Getting Started:
+      - Motivation: getting-started/motivation.md
+      - Hardware Overview: getting-started/hardware.md
+      - Architecture Diagram: getting-started/architecture.md
+      - Naming Conventions: getting-started/naming.md
+  - Setup Guide:
+      - Physical Setup:
+          - Rack Design: setup-guide/physical/rack.md
+          - Power & Cooling: setup-guide/physical/power-cooling.md
+      - OS & Base Config:
+          - Flashing OS: setup-guide/os/imaging.md
+          - Base Configuration: setup-guide/os/base.md
+          - Boot: setup-guide/os/boot.md
+      - Networking:
+          - Topology: setup-guide/network/topology.md
+          - Static IPs & DNS: setup-guide/network/ip-dns.md
+  - Cluster Deployment:
+      - Load Balancer: cluster/load-balancer.md
+      - Control Plane (K3s HA): cluster/control-plane.md
+      - Worker Nodes: cluster/worker-nodes.md
+      - Shared Storage: cluster/shared-storage.md
+      - K3s Installation: cluster/k3s.md
+      - Kubeconfig: cluster/kubeconfig.md
+  - Operating the Cluster:
+      - Apps & Workloads: operating/apps.md
+      - Monitoring: operating/monitoring.md
+      - Backup & Recovery: operating/backup.md
+      - Updates & Maintenance: operating/updates.md
+      - Automation & GitOps: operating/automation.md
+      - Security Practices: operating/security.md
+  - Extras:
+      - Troubleshooting: extras/troubleshooting.md
+      - BOM & Resources: extras/bom.md
+      - Scripts: extras/scripts.md
+      - Future Plans: extras/future.md
 
 markdown_extensions:
   - admonition
