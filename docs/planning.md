@@ -43,205 +43,73 @@ There was a long period of inactivity on the rpi5 clusters due to my personal li
 ### Current Configuration
 - **Total Nodes**: 8 (5×Pi5 + 3×Pi4)
 - **Architecture**: High-availability control plane with mixed worker nodes
-- **Use Case**: Production-like Kubernetes learning environment
-- **Status**: Fully operational and hosting real applications
+- **Use Cases**:
+  - Hands-on learning with Kubernetes, DevOps, and distributed systems
+  - In-house hosting of personal and side-project applications (self-hosted services, web apps, automation, etc.)
+- **Status**: In development right now
+
+## Hardware Inventory
+
+### Cluster Node Inventory
+
+| Node | Role               | SD Card         | Pi Model     | Rationale                                                      |
+|------|--------------------|-----------------|--------------|----------------------------------------------------------------|
+| 1    | Control Plane #1   | 256GB V30 A2    | Pi 5 (8GB)   | Most reliable + performant node (etcd leader, kube-api)        |
+| 2    | Control Plane #2   | 128GB V30 A1    | Pi 5 (8GB)   | Fast card and plenty of RAM for control tasks                  |
+| 3    | Control Plane #3   | 64GB XC1        | Pi 5 (8GB)   | Still high RAM, and 64GB is enough with SSDs for etcd follower |
+| 4    | Worker Node #1     | 64GB XC1        | Pi 5 (8GB)   | Strong worker node                                             |
+| 5    | Worker Node #2     | 64GB XC1        | Pi 5 (8GB)   | Another high-capacity worker                                   |
+| 6    | Worker Node #3     | 64GB XC1        | Pi 4 (1GB)   | Lighter worker load                                            |
+| 7    | Worker Node #4     | 64GB XC1        | Pi 4 (1GB)   | Same as above                                                  |
+| 8    | Utility / Monitor  | 32GB HC1        | Pi 4 (1GB)   | Least powerful node, for backup scripts, NFS, or logging agent |
+
+### SD Cards Used
+- 1× 256GB: V30 A2 XC1
+- 1× 128GB: V30 A1 XC1
+- 5× 64GB: XC1
+- 1× 32GB: HC1
+
+### Note on SD Card Usage
+> The SD cards are primarily used for installing the OS and light storage tasks. For most nodes, I plan to migrate to NVMe SSDs for main storage in the future, which will improve reliability and performance.
+
+### Peripherals
+
+| Item | Description | Notes |
+|------|-------------|-------|
+| **240W USB-C Cable (1FT, Sumpk)** | Short, high-current USB-C to USB-C cable | Supports up to 5A, required for Pi 5. Will upgrade both cable and charger later if needed. |
+| **Rapink Cat6a Patch Cables (1ft, 10-pack)** | Slim Cat6a Ethernet cables, 10G support | Cluster limited by switch to 1G, but future-proofs for 10G upgrades. |
+| **NETGEAR GS308E Switch** | 8-Port Gigabit Ethernet, Smart Managed | Main network backbone for the cluster. |
+| **ULIFTUS USB-C Cable (1ft)** | Short USB-C to USB-C cable | Used for additional power or data connections. |
+| **Anker Prime Charger (200W, 6-port GaN)** | 4× USB-C + 2× USB-A charging station | Delivers up to 65W on leftmost ports; main power source for Pi 5 nodes. |
 
 ## Architecture Overview
 
+The cluster is designed for high availability, flexibility, and hands-on experimentation with Kubernetes and distributed systems. It consists of a mix of Raspberry Pi 5 and Pi 4 nodes, connected via a gigabit Ethernet switch, and is powered by a robust multi-port USB-C charging station. The architecture supports both control plane and worker node roles, enabling a production-like environment for learning and self-hosting.
+
 ### Cluster Topology
-```
-                    ┌─────────────────┐
-                    │   Router/Switch │
-                    └─────────┬───────┘
-                              │
-          ┌───────────────────┼───────────────────┐
-          │                   │                   │
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│  Control Plane  │  │  Control Plane  │  │  Control Plane  │
-│   pi5-master-1  │  │   pi5-master-2  │  │   pi5-master-3  │
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-          │                   │                   │
-          └───────────────────┼───────────────────┘
-                              │
-    ┌─────────────────────────┼─────────────────────────┐
-    │                         │                         │
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│  Worker (Pi5)   │  │  Worker (Pi5)   │  │  Worker (Pi4)   │
-│  pi5-worker-1   │  │  pi5-worker-2   │  │  pi4-worker-1   │
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-          │                   │                   │
-          └───────────────────┼───────────────────┘
-                              │
-          ┌───────────────────┼───────────────────┐
-          │                   │                   │
-┌─────────────────┐  ┌─────────────────┐
-│  Worker (Pi4)   │  │  Worker (Pi4)   │
-│  pi4-worker-2   │  │  pi4-worker-3   │
-└─────────────────┘  └─────────────────┘
-```
+![Cluster Topology Diagram](assets/images/cluster_layout.png)
+*Figure: Logical layout of the Raspberry Pi cluster, showing control plane and worker nodes connected via a gigabit switch.*
 
-### Node Roles
-- **Control Plane Nodes (3x Pi 5)**: High availability Kubernetes control plane, API server, scheduler, etcd
-- **Worker Nodes (2x Pi 5)**: High-performance application workloads, pod execution
-- **Worker Nodes (3x Pi 4)**: General application workloads, batch processing
+- **Network Backbone:** All nodes are connected to a single gigabit Ethernet switch, ensuring low-latency communication and reliable networking for Kubernetes operations.
+- **Power Delivery:** The main cluster is powered by a high-capacity USB-C GaN charger, with careful port assignment to maximize power delivery to the most demanding nodes (Pi 5s).
 
-## Hardware Planning
+### Node Roles & Responsibilities
 
-### Bill of Materials (BOM)
+| Node Type | Quantity | Hardware | Role in Cluster | Description |
+|-----------|----------|----------|-----------------|-------------|
+| Control Plane | 3 | Pi 5 (8GB) | Kubernetes API, etcd, scheduler | Provides high-availability for the Kubernetes control plane. If one node fails, the cluster remains operational. |
+| Worker Node (High Perf) | 2 | Pi 5 (8GB) | Application workloads | Runs most demanding pods and services, supports NVMe upgrades. |
+| Worker Node (General) | 2 | Pi 4 (1GB) | Batch jobs, lighter workloads | Handles less resource-intensive tasks. |
+| Utility/Monitor | 1 | Pi 4 (1GB) | Monitoring, backup, NFS | Dedicated to cluster support tasks and infrastructure monitoring. |
 
-| Component | Quantity | Unit Cost | Total Cost | Notes |
-|-----------|----------|-----------|------------|-------|
-| Raspberry Pi 5 (8GB) | 5 | $80 | $400 | Control plane + high-perf workers |
-| Raspberry Pi 4 (2GB) | 3 | $55 | $165 | General workload workers |
-### Bill of Materials (BOM)
+- **Control Plane Nodes:** Three Pi 5s form a highly available control plane, running the Kubernetes API server, etcd database, and scheduler. This setup ensures that the cluster can tolerate node failures without losing management capabilities.
+- **Worker Nodes:** Two Pi 5s handle high-performance workloads, while three Pi 4s (1GB RAM) are assigned to general or batch processing tasks. This mix allows for flexible resource allocation and experimentation.
+- **Utility Node:** A single Pi 4 (1GB RAM) is reserved for monitoring, backup scripts, or as a lightweight NFS server, keeping critical support services isolated from main workloads.
 
-| Component | Quantity | Unit Cost | Total Cost | Notes |
-|-----------|----------|-----------|------------|-------|
-| Raspberry Pi 5 (8GB) | 5 | $80 | $400 | Control plane + high-perf workers |
-| Raspberry Pi 4 (2GB) | 3 | $55 | $165 | General workload workers |
-| MicroSD Card (64GB) | 8 | $12 | $96 | SanDisk Extreme Pro recommended |
-| USB-C Power Supply | 8 | $15 | $120 | Official Pi Foundation preferred |
-| Ethernet Cables (1ft) | 8 | $5 | $40 | Cat6 for gigabit speeds |
-| Gigabit Switch (16-port) | 1 | $60 | $60 | Managed switch for 8+ devices |
-| Cluster Case/Rack | 1 | $80 | $80 | For 8-node organization and cooling |
-| **Total** | | | **$961** | |
+### High-Availability Design
+- The control plane uses three nodes to achieve quorum for etcd and Kubernetes management, minimizing downtime during maintenance or hardware issues.
+- Worker nodes can be added or re-imaged as needed, supporting future expansion or hybrid workloads.
 
-### Performance Expectations
+### Storage & Future Upgrades
+- All nodes currently boot from SD cards, but the architecture is designed to support NVMe SSD upgrades for improved performance and reliability, especially on Pi 5 nodes.
 
-#### Single Node Specs (Pi 5)
-- **CPU**: 4-core ARM Cortex-A76 @ 2.4GHz
-- **RAM**: 8GB LPDDR4X
-- **Storage**: 64GB microSD (Class 10/U3)
-- **Network**: Gigabit Ethernet
-
-#### Single Node Specs (Pi 4)
-- **CPU**: 4-core ARM Cortex-A72 @ 1.8GHz
-- **RAM**: 2GB LPDDR4
-- **Storage**: 64GB microSD (Class 10/U3)
-- **Network**: Gigabit Ethernet
-
-#### Cluster Aggregate
-- **Total CPU Cores**: 32 (5×Pi5×4 cores + 3×Pi4×4 cores)
-- **Total RAM**: 46GB (5×8GB + 3×2GB) - with OS overhead ~36GB usable
-- **Network Bandwidth**: 8Gbps theoretical
-- **Power Consumption**: ~120W total
-
-## Network Design
-
-### IP Address Scheme
-```
-Network: 192.168.86.0/24
-Gateway: 192.168.86.1 (Router)
-
-Control Plane Nodes:
-- pi5-master-1: 192.168.86.33
-- pi5-master-2: 192.168.86.29
-- pi5-master-3: 192.168.86.30
-
-Worker Nodes (Pi 5):
-- pi5-worker-1: 192.168.86.32
-- pi5-worker-2: 192.168.86.34
-
-Worker Nodes (Pi 4):
-- pi4-worker-1: 192.168.86.27
-- pi4-worker-2: 192.168.86.26
-- pi4-worker-3: 192.168.86.23
-```
-
-### DNS Configuration
-- **Hostname Pattern**: `pi{5|4}-{role}-{number}.local`
-- **Internal DNS**: Consider Pi-hole for local resolution
-- **External Access**: Dynamic DNS or VPN for remote access
-
-## Software Stack Planning
-
-### Operating System
-- **Choice**: Raspberry Pi OS Lite (64-bit)
-- **Rationale**: Official support, optimized for Pi hardware
-- **Alternative**: Ubuntu Server 22.04 LTS (better K8s support)
-
-### Container Runtime
-- **Primary**: containerd (Kubernetes default)
-- **Alternative**: Docker (for development/testing)
-
-### Orchestration Platform
-- **Choice**: Kubernetes (k3s distribution)
-- **Rationale**: Lightweight, Pi-optimized, production-ready
-- **Version**: Latest stable (1.28+)
-
-### Monitoring & Observability
-- **Metrics**: Prometheus + Grafana
-- **Logs**: Fluentd/Fluent Bit + ELK Stack
-- **Tracing**: Jaeger (optional)
-
-## Timeline & Milestones
-
-### Phase 1: Foundation (Week 1-2) ✅ COMPLETED
-- [x] Hardware procurement and assembly
-- [x] OS installation and basic configuration
-- [x] Network setup and connectivity testing
-- [x] SSH access and security hardening
-
-### Phase 2: Cluster Setup (Week 3-4) ✅ COMPLETED
-- [x] Initial 4-node Pi 4 cluster setup
-- [x] Kubernetes cluster initialization
-- [x] Node joining and verification
-- [x] Basic networking (CNI) configuration
-
-### Phase 3: Cluster Expansion (Week 5-6) ✅ COMPLETED
-- [x] Procurement of 5 Pi 5 8GB units
-- [x] Hardware integration and testing
-- [x] High-availability control plane setup
-- [x] Mixed architecture worker node configuration
-
-### Phase 4: Production Services (Week 7-8) 🔄 IN PROGRESS
-- [ ] Ingress controller deployment
-- [ ] Certificate management (cert-manager)
-- [ ] Monitoring stack installation
-- [ ] Backup and recovery procedures
-
-### Phase 5: Applications & Optimization (Week 9-10)
-- [ ] Sample application deployment
-- [ ] CI/CD pipeline setup
-- [ ] Load testing and optimization
-- [ ] Documentation completion
-
-## Risk Assessment
-
-### Technical Risks
-- **SD Card Failure**: High wear on storage
-  - *Mitigation*: High-quality cards, regular backups
-- **Power Issues**: Instability from inadequate power
-  - *Mitigation*: Official power supplies, UPS consideration
-- **Thermal Throttling**: Performance degradation from heat
-  - *Mitigation*: Proper ventilation, monitoring
-- **Mixed Architecture Complexity**: Pi 4 vs Pi 5 differences
-  - *Mitigation*: Node labeling, workload placement strategies
-
-### Project Risks
-- **Complexity Underestimation**: Learning curve steeper than expected
-  - *Mitigation*: Incremental approach, community resources
-- **Hardware Limitations**: Pi constraints affecting goals
-  - *Mitigation*: Realistic expectations, alternative solutions
-
-## Success Criteria
-
-### Technical Metrics
-- [ ] Cluster uptime > 99% over 1 month
-- [ ] All nodes joining cluster successfully
-- [ ] Sample applications running reliably
-- [ ] Monitoring and alerting functional
-
-### Learning Objectives
-- [x] Comfortable with kubectl and Kubernetes concepts
-- [x] Understanding of distributed systems principles
-- [x] Experience with infrastructure as code
-- [x] Troubleshooting and debugging skills developed
-- [x] High-availability cluster management
-- [ ] Mixed-architecture workload optimization
-
----
-
-*Planning completed: June 30, 2025*
-*Last updated: July 1, 2025*
-*Next: [Hardware Setup](hardware.md)*
