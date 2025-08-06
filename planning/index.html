@@ -1,0 +1,1912 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive guide for Raspberry Pi cluster setup">
+      
+      
+        <meta name="author" content="Jaeung Jang">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Planning & Design - Pi Cluster Setup Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#planning-design" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Pi Cluster Setup Documentation" class="md-header__button md-logo" aria-label="Pi Cluster Setup Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pi Cluster Setup Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Planning &amp; Design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/motivation/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../setup-guide/physical/rack/" class="md-tabs__link">
+          
+  
+  
+  Setup Guide
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cluster/load-balancer/" class="md-tabs__link">
+          
+  
+  
+  Cluster Deployment
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../operating/apps/" class="md-tabs__link">
+          
+  
+  
+  Operating the Cluster
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../extras/troubleshooting/" class="md-tabs__link">
+          
+  
+  
+  Extras
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Pi Cluster Setup Documentation" class="md-nav__button md-logo" aria-label="Pi Cluster Setup Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Pi Cluster Setup Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/motivation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Motivation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Diagram
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Naming Conventions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Setup Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Setup Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Physical Setup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Physical Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/physical/rack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rack Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/physical/power-cooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Power & Cooling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS & Base Config
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS & Base Config
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/os/imaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing OS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/os/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Base Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/os/boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Networking
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Networking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/network/topology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Topology
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/network/ip-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Static IPs & DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cluster Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Cluster Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Load Balancer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/control-plane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Plane (K3s HA)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/worker-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Worker Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/shared-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shared Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/k3s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    K3s Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/kubeconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kubeconfig
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operating the Cluster
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Operating the Cluster
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/apps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Apps & Workloads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup & Recovery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Updates & Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Automation & GitOps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Extras
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Extras
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/bom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BOM & Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scripts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Future Plans
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Goals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Goals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Objectives
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secondary-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secondary Goals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#my-cluster-journey-from-slurm-to-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      My Cluster Journey: From Slurm to Kubernetes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="My Cluster Journey: From Slurm to Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-the-slurm-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: The Slurm Experiment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-rethinking-the-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Rethinking the Use Case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-the-k3s-reality-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: The K3s Reality Check
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-hardware-upgrade-cluster-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Hardware Upgrade &amp; Cluster Expansion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-finalizing-the-production-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 5: Finalizing the Production Cluster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Inventory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware Inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-node-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Node Inventory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sd-cards-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      SD Cards Used
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-on-sd-card-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Note on SD Card Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peripherals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Peripherals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Topology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-roles-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node Roles &amp; Responsibilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-availability-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Availability Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-future-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage &amp; Future Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="planning-design">Planning &amp; Design<a class="headerlink" href="#planning-design" title="Permanent link">&para;</a></h1>
+<h2 id="project-goals">Project Goals<a class="headerlink" href="#project-goals" title="Permanent link">&para;</a></h2>
+<h3 id="primary-objectives">Primary Objectives<a class="headerlink" href="#primary-objectives" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Learn the fundamentals of clustering and distributed systems (Slurm, Kubernetes)</li>
+<li>[x] Experiment with both HPC and container orchestration approaches</li>
+<li>[x] Build, break, and rebuild a real hardware cluster from scratch</li>
+<li>[x] Develop practical DevOps and infrastructure automation skills</li>
+<li>[x] Create a flexible home lab for ongoing experimentation</li>
+<li>[x] Understand hardware limitations and capacity planning through hands-on experience</li>
+</ul>
+<h3 id="secondary-goals">Secondary Goals<a class="headerlink" href="#secondary-goals" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Compare and contrast different orchestration tools (Slurm vs. K3s)</li>
+<li>[x] Optimize for cost, power, and scalability</li>
+<li>[x] Document the full journey—including failures, pivots, and lessons learned</li>
+<li>[x] Achieve a production-like, high-availability Kubernetes cluster</li>
+<li>[x] Reduce reliance on cloud costs by self-hosting applications</li>
+<li>[x] Enable future expansion and hybrid workloads (Pi 4 + Pi 5)</li>
+</ul>
+<h2 id="project-evolution">Project Evolution<a class="headerlink" href="#project-evolution" title="Permanent link">&para;</a></h2>
+<h3 id="my-cluster-journey-from-slurm-to-kubernetes">My Cluster Journey: From Slurm to Kubernetes<a class="headerlink" href="#my-cluster-journey-from-slurm-to-kubernetes" title="Permanent link">&para;</a></h3>
+<h4 id="phase-1-the-slurm-experiment">Phase 1: The Slurm Experiment<a class="headerlink" href="#phase-1-the-slurm-experiment" title="Permanent link">&para;</a></h4>
+<p>I started my cluster journey with the idea of building a low-cost HPC cluster using Slurm and several Raspberry Pi 4 boards (originally 1GB RAM models). My experience with AWS T2.micro instances made me think this would be enough for basic clustering. While I was able to get the Pis working together, I quickly realized that Slurm wasn’t a good fit for my needs—I didn’t require CPU-intensive batch jobs or heavy computation. The project was a great way to showcase my skills and past experience, but it wasn’t practical for my day-to-day goals.</p>
+<p><a class="glightbox" href="../assets/images/me_frustrating_with_pi.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Raspberry Pi Cluster Prototype" src="../assets/images/me_frustrating_with_pi.png" /></a>
+<a class="glightbox" href="../assets/images/initial_pi_cluster_with_pi4.JPG" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Initial pi Cluster Setup" src="../assets/images/initial_pi_cluster_with_pi4.JPG" /></a></p>
+<h4 id="phase-2-rethinking-the-use-case">Phase 2: Rethinking the Use Case<a class="headerlink" href="#phase-2-rethinking-the-use-case" title="Permanent link">&para;</a></h4>
+<p>Wanting to focus more on application development and the full DevOps lifecycle, I began exploring container orchestration. I discovered K3s, a lightweight Kubernetes distribution that’s perfect for small clusters and edge devices. This shift allowed me to simulate scaling, deploy real applications, and even reduce my reliance on paid cloud services like AWS (which was costing me $10/month for just a couple of T2.micro instances and static IPs).</p>
+<h4 id="phase-3-the-k3s-reality-check">Phase 3: The K3s Reality Check<a class="headerlink" href="#phase-3-the-k3s-reality-check" title="Permanent link">&para;</a></h4>
+<p>Inspired by <a href="https://www.youtube.com/watch?v=N4bfNefjBSw&amp;list=PL2_OBreMn7Frk57NLmLheAaSSpJLLL90G&amp;index=3">Jeff Geerling’s K3s tutorials</a>, I tried installing K3s on my Pi 4 cluster. Unfortunately, 1GB RAM was nowhere near enough for a Kubernetes control plane. The master node couldn’t even start reliably, and I learned the hard way how important it is to plan hardware specs before buying.</p>
+<h4 id="phase-4-hardware-upgrade-cluster-expansion">Phase 4: Hardware Upgrade &amp; Cluster Expansion<a class="headerlink" href="#phase-4-hardware-upgrade-cluster-expansion" title="Permanent link">&para;</a></h4>
+<p>Realizing the hardware bottleneck, I decided to upgrade. I started by purchasing two Raspberry Pi 5 boards (8GB RAM each) to test K3s performance. Encouraged by the results, I added two more Pi 5s, building a cluster with one master and three workers, all fitting nicely in a tower case.</p>
+<h4 id="phase-5-finalizing-the-production-cluster">Phase 5: Finalizing the Production Cluster<a class="headerlink" href="#phase-5-finalizing-the-production-cluster" title="Permanent link">&para;</a></h4>
+<p>There was a long period of inactivity on the rpi5 clusters due to my personal life that I decided to disassemble everything and even repurposed one pi 4 for OctoPi (3d printer server) and added another pi 5. I was still feeling toward using slurm for some unforseen events in the future but I decided that would not come and would probably better to go with some other solutions like running directly on my mac, desktop, or even cloud. As my focus shifted fully to Kubernetes and my focus is back to building pi cluster again, I start gathering what I have. This brought my cluster to its current state: 5× Pi 5 (8GB RAM) and 3× Pi 4 (1GB RAM), all freshly re-imaged and ready for a robust, production-like Kubernetes environment.</p>
+<h3 id="current-configuration">Current Configuration<a class="headerlink" href="#current-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Total Nodes</strong>: 8 (5×Pi5 + 3×Pi4)</li>
+<li><strong>Architecture</strong>: High-availability control plane with mixed worker nodes</li>
+<li><strong>Use Cases</strong>:</li>
+<li>Hands-on learning with Kubernetes, DevOps, and distributed systems</li>
+<li>In-house hosting of personal and side-project applications (self-hosted services, web apps, automation, etc.)</li>
+<li><strong>Status</strong>: In development right now</li>
+</ul>
+<h2 id="hardware-inventory">Hardware Inventory<a class="headerlink" href="#hardware-inventory" title="Permanent link">&para;</a></h2>
+<h3 id="cluster-node-inventory">Cluster Node Inventory<a class="headerlink" href="#cluster-node-inventory" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Role</th>
+<th>SD Card</th>
+<th>Pi Model</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Control Plane #1</td>
+<td>256GB V30 A2</td>
+<td>Pi 5 (8GB)</td>
+<td>Most reliable + performant node (etcd leader, kube-api)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Control Plane #2</td>
+<td>128GB V30 A1</td>
+<td>Pi 5 (8GB)</td>
+<td>Fast card and plenty of RAM for control tasks</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Control Plane #3</td>
+<td>64GB XC1</td>
+<td>Pi 5 (8GB)</td>
+<td>Still high RAM, and 64GB is enough with SSDs for etcd follower</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Worker Node #1</td>
+<td>64GB XC1</td>
+<td>Pi 5 (8GB)</td>
+<td>Strong worker node</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Worker Node #2</td>
+<td>64GB XC1</td>
+<td>Pi 5 (8GB)</td>
+<td>Another high-capacity worker</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Worker Node #3</td>
+<td>64GB XC1</td>
+<td>Pi 4 (1GB)</td>
+<td>Lighter worker load</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Worker Node #4</td>
+<td>64GB XC1</td>
+<td>Pi 4 (1GB)</td>
+<td>Same as above</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Utility / Monitor</td>
+<td>32GB HC1</td>
+<td>Pi 4 (1GB)</td>
+<td>Least powerful node, for backup scripts, NFS, or logging agent</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sd-cards-used">SD Cards Used<a class="headerlink" href="#sd-cards-used" title="Permanent link">&para;</a></h3>
+<ul>
+<li>1× 256GB: V30 A2 XC1</li>
+<li>1× 128GB: V30 A1 XC1</li>
+<li>5× 64GB: XC1</li>
+<li>1× 32GB: HC1</li>
+</ul>
+<h3 id="note-on-sd-card-usage">Note on SD Card Usage<a class="headerlink" href="#note-on-sd-card-usage" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>The SD cards are primarily used for installing the OS and light storage tasks. For most nodes, I plan to migrate to NVMe SSDs for main storage in the future, which will improve reliability and performance.</p>
+</blockquote>
+<h3 id="peripherals">Peripherals<a class="headerlink" href="#peripherals" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>240W USB-C Cable (1FT, Sumpk)</strong></td>
+<td>Short, high-current USB-C to USB-C cable</td>
+<td>Supports up to 5A, required for Pi 5. Will upgrade both cable and charger later if needed.</td>
+</tr>
+<tr>
+<td><strong>Rapink Cat6a Patch Cables (1ft, 10-pack)</strong></td>
+<td>Slim Cat6a Ethernet cables, 10G support</td>
+<td>Cluster limited by switch to 1G, but future-proofs for 10G upgrades.</td>
+</tr>
+<tr>
+<td><strong>NETGEAR GS308E Switch</strong></td>
+<td>8-Port Gigabit Ethernet, Smart Managed</td>
+<td>Main network backbone for the cluster.</td>
+</tr>
+<tr>
+<td><strong>ULIFTUS USB-C Cable (1ft)</strong></td>
+<td>Short USB-C to USB-C cable</td>
+<td>Used for additional power or data connections.</td>
+</tr>
+<tr>
+<td><strong>Anker Prime Charger (200W, 6-port GaN)</strong></td>
+<td>4× USB-C + 2× USB-A charging station</td>
+<td>Delivers up to 65W on leftmost ports; main power source for Pi 5 nodes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
+<p>The cluster is designed for high availability, flexibility, and hands-on experimentation with Kubernetes and distributed systems. It consists of a mix of Raspberry Pi 5 and Pi 4 nodes, connected via a gigabit Ethernet switch, and is powered by a robust multi-port USB-C charging station. The architecture supports both control plane and worker node roles, enabling a production-like environment for learning and self-hosting.</p>
+<h3 id="cluster-topology">Cluster Topology<a class="headerlink" href="#cluster-topology" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../assets/images/cluster_layout.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Cluster Topology Diagram" src="../assets/images/cluster_layout.png" /></a>
+<em>Figure: Logical layout of the Raspberry Pi cluster, showing control plane and worker nodes connected via a gigabit switch.</em></p>
+<ul>
+<li><strong>Network Backbone:</strong> All nodes are connected to a single gigabit Ethernet switch, ensuring low-latency communication and reliable networking for Kubernetes operations.</li>
+<li><strong>Power Delivery:</strong> The main cluster is powered by a high-capacity USB-C GaN charger, with careful port assignment to maximize power delivery to the most demanding nodes (Pi 5s).</li>
+</ul>
+<h3 id="node-roles-responsibilities">Node Roles &amp; Responsibilities<a class="headerlink" href="#node-roles-responsibilities" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Node Type</th>
+<th>Quantity</th>
+<th>Hardware</th>
+<th>Role in Cluster</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control Plane</td>
+<td>3</td>
+<td>Pi 5 (8GB)</td>
+<td>Kubernetes API, etcd, scheduler</td>
+<td>Provides high-availability for the Kubernetes control plane. If one node fails, the cluster remains operational.</td>
+</tr>
+<tr>
+<td>Worker Node (High Perf)</td>
+<td>2</td>
+<td>Pi 5 (8GB)</td>
+<td>Application workloads</td>
+<td>Runs most demanding pods and services, supports NVMe upgrades.</td>
+</tr>
+<tr>
+<td>Worker Node (General)</td>
+<td>2</td>
+<td>Pi 4 (1GB)</td>
+<td>Batch jobs, lighter workloads</td>
+<td>Handles less resource-intensive tasks.</td>
+</tr>
+<tr>
+<td>Utility/Monitor</td>
+<td>1</td>
+<td>Pi 4 (1GB)</td>
+<td>Monitoring, backup, NFS</td>
+<td>Dedicated to cluster support tasks and infrastructure monitoring.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Control Plane Nodes:</strong> Three Pi 5s form a highly available control plane, running the Kubernetes API server, etcd database, and scheduler. This setup ensures that the cluster can tolerate node failures without losing management capabilities.</li>
+<li><strong>Worker Nodes:</strong> Two Pi 5s handle high-performance workloads, while three Pi 4s (1GB RAM) are assigned to general or batch processing tasks. This mix allows for flexible resource allocation and experimentation.</li>
+<li><strong>Utility Node:</strong> A single Pi 4 (1GB RAM) is reserved for monitoring, backup scripts, or as a lightweight NFS server, keeping critical support services isolated from main workloads.</li>
+</ul>
+<h3 id="high-availability-design">High-Availability Design<a class="headerlink" href="#high-availability-design" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The control plane uses three nodes to achieve quorum for etcd and Kubernetes management, minimizing downtime during maintenance or hardware issues.</li>
+<li>Worker nodes can be added or re-imaged as needed, supporting future expansion or hybrid workloads.</li>
+</ul>
+<h3 id="storage-future-upgrades">Storage &amp; Future Upgrades<a class="headerlink" href="#storage-future-upgrades" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All nodes currently boot from SD cards, but the architecture is designed to support NVMe SSD upgrades for improved performance and reliability, especially on Pi 5 nodes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.highlight"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

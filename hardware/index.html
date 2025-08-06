@@ -1,0 +1,2315 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive guide for Raspberry Pi cluster setup">
+      
+      
+        <meta name="author" content="Jaeung Jang">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Hardware Setup - Pi Cluster Setup Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hardware-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Pi Cluster Setup Documentation" class="md-header__button md-logo" aria-label="Pi Cluster Setup Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pi Cluster Setup Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/motivation/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../setup-guide/physical/rack/" class="md-tabs__link">
+          
+  
+  
+  Setup Guide
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cluster/load-balancer/" class="md-tabs__link">
+          
+  
+  
+  Cluster Deployment
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../operating/apps/" class="md-tabs__link">
+          
+  
+  
+  Operating the Cluster
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../extras/troubleshooting/" class="md-tabs__link">
+          
+  
+  
+  Extras
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Pi Cluster Setup Documentation" class="md-nav__button md-logo" aria-label="Pi Cluster Setup Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Pi Cluster Setup Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/motivation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Motivation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Diagram
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Naming Conventions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Setup Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Setup Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Physical Setup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Physical Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/physical/rack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rack Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/physical/power-cooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Power & Cooling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS & Base Config
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS & Base Config
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/os/imaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flashing OS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/os/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Base Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/os/boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Networking
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Networking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/network/topology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Topology
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guide/network/ip-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Static IPs & DNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cluster Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Cluster Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Load Balancer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/control-plane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Plane (K3s HA)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/worker-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Worker Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/shared-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shared Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/k3s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    K3s Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster/kubeconfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kubeconfig
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operating the Cluster
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Operating the Cluster
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/apps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Apps & Workloads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup & Recovery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Updates & Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Automation & GitOps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operating/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Extras
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Extras
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/bom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BOM & Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scripts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Future Plans
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unboxing-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unboxing &amp; Inventory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unboxing &amp; Inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-setup-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Setup Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Inspection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#physical-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Physical Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-case-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Case Assembly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cooling-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cooling Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cooling Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passive-cooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passive Cooling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-cooling-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active Cooling (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Infrastructure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Infrastructure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switch-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Switch Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Switch Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-configuration-managed-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Configuration (Managed Switch)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cable-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cable Organization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cable Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#labeling-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Labeling System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cable-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cable Routing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-supply-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Supply Verification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power Supply Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#individual-pi-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Individual Pi Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Distribution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#centralized-vs-distributed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Centralized vs Distributed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ups-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      UPS Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microsd-card-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      MicroSD Card Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MicroSD Card Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Card Preparation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-strategy-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup Strategy Planning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environmental-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environmental Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environmental Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workspace-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workspace Organization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workspace Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#physical-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Workspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-supplies-station" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools &amp; Supplies Station
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#photo-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Photo Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Records
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing &amp; Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing &amp; Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connectivity Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectivity Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Verification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Baseline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stress-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stress Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stress Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#individual-node-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Individual Node Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-wide-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Wide Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting Common Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-related-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power-Related Problems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power-Related Problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptoms-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symptoms &amp; Solutions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connectivity Problems
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thermal-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thermal Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thermal Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overheating-symptoms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overheating Symptoms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hardware-setup">Hardware Setup<a class="headerlink" href="#hardware-setup" title="Permanent link">&para;</a></h1>
+<h2 id="unboxing-inventory">Unboxing &amp; Inventory<a class="headerlink" href="#unboxing-inventory" title="Permanent link">&para;</a></h2>
+<h3 id="pre-setup-checklist">Pre-Setup Checklist<a class="headerlink" href="#pre-setup-checklist" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] All Raspberry Pi boards received and inspected</li>
+<li>[ ] Power supplies tested and functional</li>
+<li>[ ] MicroSD cards verified (speed test recommended)</li>
+<li>[ ] Network cables tested for continuity</li>
+<li>[ ] Switch/router configuration access confirmed</li>
+</ul>
+<h3 id="initial-inspection">Initial Inspection<a class="headerlink" href="#initial-inspection" title="Permanent link">&para;</a></h3>
+<p>Document any issues found during unboxing:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Serial/Model</th>
+<th>Condition</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pi Board #1</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+<tr>
+<td>Pi Board #2</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+<tr>
+<td>Pi Board #3</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+<tr>
+<td>Pi Board #4</td>
+<td></td>
+<td>✅ Good</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="physical-assembly">Physical Assembly<a class="headerlink" href="#physical-assembly" title="Permanent link">&para;</a></h2>
+<h3 id="cluster-case-assembly">Cluster Case Assembly<a class="headerlink" href="#cluster-case-assembly" title="Permanent link">&para;</a></h3>
+<p>If using a cluster case or rack:</p>
+<ol>
+<li><strong>Case Preparation</strong></li>
+<li>[ ] Assemble case according to manufacturer instructions</li>
+<li>[ ] Install any included fans or cooling solutions</li>
+<li>
+<p>[ ] Verify all mounting points align with Pi boards</p>
+</li>
+<li>
+<p><strong>Pi Board Installation</strong></p>
+</li>
+<li>[ ] Install heat sinks on CPU and RAM chips</li>
+<li>[ ] Mount each Pi in designated slots</li>
+<li>
+<p>[ ] Ensure proper clearance for cables and airflow</p>
+</li>
+<li>
+<p><strong>Cable Management</strong></p>
+</li>
+<li>[ ] Route power cables cleanly</li>
+<li>[ ] Organize ethernet cables by length</li>
+<li>[ ] Leave space for maintenance access</li>
+</ol>
+<h3 id="cooling-considerations">Cooling Considerations<a class="headerlink" href="#cooling-considerations" title="Permanent link">&para;</a></h3>
+<h4 id="passive-cooling">Passive Cooling<a class="headerlink" href="#passive-cooling" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Heat Sinks</strong>: Aluminum or copper on CPU</li>
+<li><strong>Case Design</strong>: Ensure adequate ventilation</li>
+<li><strong>Spacing</strong>: Maintain airflow between nodes</li>
+</ul>
+<h4 id="active-cooling-optional">Active Cooling (Optional)<a class="headerlink" href="#active-cooling-optional" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Case Fans</strong>: 40mm or 80mm depending on case</li>
+<li><strong>Individual Fans</strong>: Small fans per Pi board</li>
+<li><strong>Temperature Monitoring</strong>: Track thermals during load</li>
+</ul>
+<h2 id="network-infrastructure">Network Infrastructure<a class="headerlink" href="#network-infrastructure" title="Permanent link">&para;</a></h2>
+<h3 id="switch-configuration">Switch Configuration<a class="headerlink" href="#switch-configuration" title="Permanent link">&para;</a></h3>
+<h4 id="basic-setup">Basic Setup<a class="headerlink" href="#basic-setup" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Default switch settings (most are plug-and-play)</span>
+-<span class="w"> </span>Auto-negotiation:<span class="w"> </span>Enabled
+-<span class="w"> </span>Duplex:<span class="w"> </span>Full
+-<span class="w"> </span>Speed:<span class="w"> </span>Gigabit
+-<span class="w"> </span>Flow<span class="w"> </span>Control:<span class="w"> </span>Enabled
+</code></pre></div>
+
+<h4 id="advanced-configuration-managed-switch">Advanced Configuration (Managed Switch)<a class="headerlink" href="#advanced-configuration-managed-switch" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># VLAN setup (optional)</span>
+VLAN<span class="w"> </span><span class="m">10</span>:<span class="w"> </span>Cluster<span class="w"> </span>Management<span class="w"> </span><span class="o">(</span><span class="m">192</span>.168.1.0/24<span class="o">)</span>
+VLAN<span class="w"> </span><span class="m">20</span>:<span class="w"> </span>Application<span class="w"> </span>Traffic<span class="w"> </span><span class="o">(</span><span class="m">192</span>.168.2.0/24<span class="o">)</span>
+
+<span class="c1"># Port assignments</span>
+Port<span class="w"> </span><span class="m">1</span>-4:<span class="w"> </span>Pi<span class="w"> </span>Nodes<span class="w"> </span><span class="o">(</span>Access<span class="w"> </span>VLAN<span class="w"> </span><span class="m">10</span><span class="o">)</span>
+Port<span class="w"> </span><span class="m">5</span>:<span class="w"> </span>Uplink<span class="w"> </span>to<span class="w"> </span>Router<span class="w"> </span><span class="o">(</span>Trunk<span class="o">)</span>
+Port<span class="w"> </span><span class="m">6</span>-8:<span class="w"> </span>Future<span class="w"> </span>expansion
+</code></pre></div>
+
+<h3 id="cable-organization">Cable Organization<a class="headerlink" href="#cable-organization" title="Permanent link">&para;</a></h3>
+<h4 id="labeling-system">Labeling System<a class="headerlink" href="#labeling-system" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Power Cables</strong>: "PWR-PI-01", "PWR-PI-02", etc.</li>
+<li><strong>Network Cables</strong>: "NET-PI-01", "NET-PI-02", etc.</li>
+<li><strong>Node Labels</strong>: Physical labels on each Pi</li>
+</ul>
+<h4 id="cable-routing">Cable Routing<a class="headerlink" href="#cable-routing" title="Permanent link">&para;</a></h4>
+<ul>
+<li>[ ] Power cables routed away from network cables</li>
+<li>[ ] Service loops for maintenance access</li>
+<li>[ ] Strain relief at connection points</li>
+</ul>
+<h2 id="power-management">Power Management<a class="headerlink" href="#power-management" title="Permanent link">&para;</a></h2>
+<h3 id="power-supply-verification">Power Supply Verification<a class="headerlink" href="#power-supply-verification" title="Permanent link">&para;</a></h3>
+<h4 id="individual-pi-testing">Individual Pi Testing<a class="headerlink" href="#individual-pi-testing" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Test each power supply before deployment</span>
+<span class="m">1</span>.<span class="w"> </span>Connect<span class="w"> </span>power<span class="w"> </span>supply<span class="w"> </span>to<span class="w"> </span>Pi
+<span class="m">2</span>.<span class="w"> </span>Boot<span class="w"> </span>with<span class="w"> </span>basic<span class="w"> </span>OS<span class="w"> </span>image
+<span class="m">3</span>.<span class="w"> </span>Monitor<span class="w"> </span>voltage<span class="w"> </span>under<span class="w"> </span>load:
+<span class="w">   </span>vcgencmd<span class="w"> </span>measure_volts
+<span class="m">4</span>.<span class="w"> </span>Document<span class="w"> </span>any<span class="w"> </span>voltage<span class="w"> </span>drops<span class="w"> </span>below<span class="w"> </span><span class="m">4</span>.8V
+</code></pre></div>
+
+<h4 id="load-testing">Load Testing<a class="headerlink" href="#load-testing" title="Permanent link">&para;</a></h4>
+<ul>
+<li>[ ] All Pis powered simultaneously</li>
+<li>[ ] Full CPU stress test on all nodes</li>
+<li>[ ] Monitor for brownouts or instability</li>
+<li>[ ] Document peak power consumption</li>
+</ul>
+<h3 id="power-distribution">Power Distribution<a class="headerlink" href="#power-distribution" title="Permanent link">&para;</a></h3>
+<h4 id="centralized-vs-distributed">Centralized vs Distributed<a class="headerlink" href="#centralized-vs-distributed" title="Permanent link">&para;</a></h4>
+<p><strong>Option A: Individual Power Supplies</strong>
+- Pros: Isolation, easier troubleshooting
+- Cons: Cable clutter, multiple wall adapters</p>
+<p><strong>Option B: USB Hub with High-Wattage Supply</strong>
+- Pros: Cleaner cable management
+- Cons: Single point of failure</p>
+<p><strong>Option C: PoE (Power over Ethernet)</strong>
+- Pros: Single cable per Pi, very clean
+- Cons: Requires PoE HATs, more expensive</p>
+<h3 id="ups-considerations">UPS Considerations<a class="headerlink" href="#ups-considerations" title="Permanent link">&para;</a></h3>
+<p>For production-like testing:
+- [ ] Calculate total power consumption
+- [ ] Size UPS for 15-30 minutes runtime
+- [ ] Configure graceful shutdown procedures
+- [ ] Test failover scenarios</p>
+<h2 id="storage-preparation">Storage Preparation<a class="headerlink" href="#storage-preparation" title="Permanent link">&para;</a></h2>
+<h3 id="microsd-card-setup">MicroSD Card Setup<a class="headerlink" href="#microsd-card-setup" title="Permanent link">&para;</a></h3>
+<h4 id="performance-testing">Performance Testing<a class="headerlink" href="#performance-testing" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Test write speed (do this before OS installation)</span>
+sudo<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/path/to/test<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">1024</span><span class="w"> </span><span class="nv">conv</span><span class="o">=</span>fsync
+<span class="c1"># Should achieve &gt;50MB/s for Class 10 cards</span>
+</code></pre></div>
+
+<h4 id="card-preparation">Card Preparation<a class="headerlink" href="#card-preparation" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Format Cards</strong>
+   <code>bash
+   # Use official Raspberry Pi Imager or
+   sudo fdisk /dev/diskX  # Replace X with actual disk</code></p>
+</li>
+<li>
+<p><strong>Label Cards</strong></p>
+</li>
+<li>Physical labels: "PI-MASTER", "PI-WORKER-01", etc.</li>
+<li>Document serial numbers for tracking</li>
+</ol>
+<h4 id="backup-strategy-planning">Backup Strategy Planning<a class="headerlink" href="#backup-strategy-planning" title="Permanent link">&para;</a></h4>
+<ul>
+<li>[ ] Determine backup frequency (weekly recommended)</li>
+<li>[ ] Plan for automated backup scripts</li>
+<li>[ ] Consider network-attached storage for backups</li>
+</ul>
+<h2 id="environmental-setup">Environmental Setup<a class="headerlink" href="#environmental-setup" title="Permanent link">&para;</a></h2>
+<h3 id="workspace-organization">Workspace Organization<a class="headerlink" href="#workspace-organization" title="Permanent link">&para;</a></h3>
+<h4 id="physical-workspace">Physical Workspace<a class="headerlink" href="#physical-workspace" title="Permanent link">&para;</a></h4>
+<ul>
+<li>[ ] Dedicated area for cluster</li>
+<li>[ ] Good ventilation and temperature control</li>
+<li>[ ] Easy access for maintenance</li>
+<li>[ ] Protection from dust and interference</li>
+</ul>
+<h4 id="tools-supplies-station">Tools &amp; Supplies Station<a class="headerlink" href="#tools-supplies-station" title="Permanent link">&para;</a></h4>
+<ul>
+<li>[ ] Spare cables and adapters</li>
+<li>[ ] Multimeter for electrical testing</li>
+<li>[ ] Small screwdrivers and tools</li>
+<li>[ ] Backup microSD cards</li>
+<li>[ ] Documentation and labels</li>
+</ul>
+<h3 id="documentation-setup">Documentation Setup<a class="headerlink" href="#documentation-setup" title="Permanent link">&para;</a></h3>
+<h4 id="photo-documentation">Photo Documentation<a class="headerlink" href="#photo-documentation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>[ ] Before assembly photos</li>
+<li>[ ] Step-by-step assembly photos</li>
+<li>[ ] Final setup documentation</li>
+<li>[ ] Cable routing and labeling photos</li>
+</ul>
+<h4 id="configuration-records">Configuration Records<a class="headerlink" href="#configuration-records" title="Permanent link">&para;</a></h4>
+<p>Create a physical or digital log for:
+- Serial numbers and MAC addresses
+- Power consumption measurements
+- Network configuration details
+- Any modifications or issues encountered</p>
+<h2 id="testing-validation">Testing &amp; Validation<a class="headerlink" href="#testing-validation" title="Permanent link">&para;</a></h2>
+<h3 id="connectivity-testing">Connectivity Testing<a class="headerlink" href="#connectivity-testing" title="Permanent link">&para;</a></h3>
+<h4 id="network-verification">Network Verification<a class="headerlink" href="#network-verification" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Test each Pi&#39;s network connectivity</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">192</span>.168.1.1<span class="w">  </span><span class="c1"># Gateway</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">      </span><span class="c1"># Internet</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>pi-worker1.local<span class="w">  </span><span class="c1"># Inter-node communication</span>
+</code></pre></div>
+
+<h4 id="performance-baseline">Performance Baseline<a class="headerlink" href="#performance-baseline" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Network speed test between nodes</span>
+iperf3<span class="w"> </span>-s<span class="w">  </span><span class="c1"># On one node</span>
+iperf3<span class="w"> </span>-c<span class="w"> </span>pi-worker1<span class="w"> </span>-t<span class="w"> </span><span class="m">30</span><span class="w">  </span><span class="c1"># From another node</span>
+</code></pre></div>
+
+<h3 id="stress-testing">Stress Testing<a class="headerlink" href="#stress-testing" title="Permanent link">&para;</a></h3>
+<h4 id="individual-node-testing">Individual Node Testing<a class="headerlink" href="#individual-node-testing" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># CPU stress test</span>
+stress-ng<span class="w"> </span>--cpu<span class="w"> </span><span class="m">4</span><span class="w"> </span>--timeout<span class="w"> </span>300s<span class="w"> </span>--metrics-brief
+
+<span class="c1"># Memory test</span>
+stress-ng<span class="w"> </span>--vm<span class="w"> </span><span class="m">2</span><span class="w"> </span>--vm-bytes<span class="w"> </span><span class="m">75</span>%<span class="w"> </span>--timeout<span class="w"> </span>300s
+
+<span class="c1"># Storage I/O test</span>
+stress-ng<span class="w"> </span>--hdd<span class="w"> </span><span class="m">1</span><span class="w"> </span>--hdd-bytes<span class="w"> </span>1G<span class="w"> </span>--timeout<span class="w"> </span>300s
+</code></pre></div>
+
+<h4 id="cluster-wide-testing">Cluster-Wide Testing<a class="headerlink" href="#cluster-wide-testing" title="Permanent link">&para;</a></h4>
+<ul>
+<li>[ ] All nodes under simultaneous load</li>
+<li>[ ] Monitor temperatures and throttling</li>
+<li>[ ] Verify stable operation for extended periods</li>
+<li>[ ] Document any performance limitations</li>
+</ul>
+<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues<a class="headerlink" href="#troubleshooting-common-issues" title="Permanent link">&para;</a></h2>
+<h3 id="power-related-problems">Power-Related Problems<a class="headerlink" href="#power-related-problems" title="Permanent link">&para;</a></h3>
+<h4 id="symptoms-solutions">Symptoms &amp; Solutions<a class="headerlink" href="#symptoms-solutions" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Random reboots</strong>: Check power supply capacity</li>
+<li><strong>Yellow lightning bolt</strong>: Increase power supply wattage</li>
+<li><strong>Performance issues</strong>: Monitor voltage under load</li>
+</ul>
+<h3 id="network-issues">Network Issues<a class="headerlink" href="#network-issues" title="Permanent link">&para;</a></h3>
+<h4 id="connectivity-problems">Connectivity Problems<a class="headerlink" href="#connectivity-problems" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>No link light</strong>: Check cable and switch port</li>
+<li><strong>Slow speeds</strong>: Verify cable category and switch capabilities</li>
+<li><strong>DHCP failures</strong>: Check router DHCP pool size</li>
+</ul>
+<h3 id="thermal-issues">Thermal Issues<a class="headerlink" href="#thermal-issues" title="Permanent link">&para;</a></h3>
+<h4 id="overheating-symptoms">Overheating Symptoms<a class="headerlink" href="#overheating-symptoms" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>CPU throttling</strong>: Monitor with <code>vcgencmd measure_temp</code></li>
+<li><strong>Reduced performance</strong>: Add cooling or improve ventilation</li>
+<li><strong>System instability</strong>: Check case airflow design</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Once hardware setup is complete:</p>
+<ol>
+<li><strong>OS Installation</strong>: Proceed to <a href="os-setup.md">OS Setup</a></li>
+<li><strong>Initial Configuration</strong>: Network and SSH setup</li>
+<li><strong>Security Hardening</strong>: Update and secure each node</li>
+<li><strong>Cluster Software</strong>: Kubernetes installation and configuration</li>
+</ol>
+<hr />
+<p><em>Hardware setup completed: [Date]</em>
+<em>Issues encountered: [List any problems and solutions]</em>
+<em>Next: <a href="os-setup.md">Operating System Setup</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.highlight"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
